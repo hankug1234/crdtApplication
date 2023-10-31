@@ -98,6 +98,46 @@ p2p 방식의 동시 편집을 가능하게함
     
     
     
+    //BwRga object 할당후 0번째 off set 위치에 hello 삽입 
+    doc1.assign(Root.document().dict("profile").reg("explain"), new ObjectTypeVal("text"));
+    doc1.edit(Root.document().dict("profile").reg("explain"), Text.insert(0, "hello"));
+    
+    
+    
+    
+    //동기 화를 위한 sleep
+    Thread.sleep(100);
+		
+		
+		
+		
+    // 동시에 5번 offset에 각각 master, hankug string 삽입 		
+    doc1.edit(Root.document().dict("profile").reg("explain"), Text.insert(5, " master"));
+    
+    
+    doc2.edit(Root.document().dict("profile").reg("explain"), Text.insert(5, " hankug"));
+    
+    
+    
+    
+    //carts 배열의 1번 인덱스 값을 3번 인덱스 뒤로 위치 변경 
+    doc1.move(Root.document().list("carts"), 1, 3, Location.after);
+    
+    
+    
+    
+    //편집 결과값 JSONObject 형식으로 조회 root 경로 아래 모든 json 값 조회
+    JSONObject result2 = doc2.get(Root.document());
+    
+    
+    JSONObject result1 = doc1.get(Root.document());
+    
+    
+    log.info(result2.toString());
+    
+    
+    log.info(result1.toString());
+    
 
 
 ### state based crdt 
